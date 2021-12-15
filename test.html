@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sumeet Nathani</title>
+  </head>
+  <body>
+    <div>
+      Try both modes
+      <ul>
+        <li>Empty the text box and click "Submit"</li>
+        <li>Write your name in the textbox and click "Submit"</li>
+      </ul>
+    </div>
+    <textarea id="data" rows="20" style="width: 85%; height: 90%"></textarea>
+    <button id="submit" type="button">Submit</button>
+  </body>
+  <script type="text/javascript">
+    const button = document.getElementById("submit");
+    const textarea = document.getElementById("data");
+
+    button.onclick = (e) => {
+      if (textarea.value.length > 500) textarea.value = "Pasan";
+      
+      const val = textarea.value || "";
+      const r = val.length > 0 ? fetch(`api.php?name=${val}`) : fetch("api.php");
+      r.then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        textarea.value = JSON.stringify(data);
+      });
+    };
+  </script>
+</html>
